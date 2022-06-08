@@ -11,12 +11,100 @@ datasource db {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  firstName     String
-  lastName      String?
-  username      String    @unique
-  email         String    @unique
-  password      String
+  id                Int               @id @default(autoincrement())
+  firstName         String
+  lastName          String?
+  userName          String?           @unique
+  email             String?           @unique
+  password          String?
+  phone             String
+  size              String
+  creditCard        String?
+  expireDate        String?
+  cvcNumber         String?
+  isSuperUser       Boolean           @default(false)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  shippingAddresses ShippingAddress[]
+  order             Order[]
+}
+
+model ShippingAddress {
+  id                    Int      @id @default(autoincrement())
+  user                  User     @relation(fields: [userId], references: [id])
+  userId                Int
+  addressName           String
+  shippingName          String
+  shippingPhone         String
+  shippingAddress       String
+  shippingDetailAddress String
+  shippingZipCode       String
+  is_default            String
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+model Product {
+  id                    Int                    @id @default(autoincrement())
+  productName           String
+  productEngName        String?
+  price                 Int
+  discountRate          Int                    @default(0)
+  thumbnail             String                 @default("null")
+  detailPage1           String                 @default("null")
+  detailPage2           String                 @default("null")
+  sizes                 Size[]
+  colors                Color[]
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  orderItems            OrderItem[]
+  productSliderPictures ProductSliderPicture[]
+}
+
+model ProductSliderPicture {
+  id        Int      @id @default(autoincrement())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  order     Int?
+  link      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Size {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+}
+
+model Color {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  user        User        @relation(fields: [userId], references: [id])
+  userId      Int
+  orderMethod String
+  paid        Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  amount    Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
