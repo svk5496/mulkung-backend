@@ -33,10 +33,9 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "fs-capacitor": "^7.0.1",
-    "graphql": "^16.3.0",
+    "fs-capacitor": "^6.2.0",
     "graphql-tools": "^8.2.1",
-    "graphql-upload": "^13.0.0",
+    "graphql-upload": "^11.0.0",
     "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1"
   },
@@ -45,11 +44,12 @@
     "@babel/node": "^7.17.10",
     "@babel/plugin-transform-runtime": "^7.18.2",
     "@babel/preset-env": "^7.16.11",
+    "graphql": "^15.8.0",
     "nodemon": "^2.0.15",
     "prisma": "^3.11.0"
   },
   "resolutions": {
-    "fs-capacitor": "^7.0.1",
-    "graphql-upload": "^13.0.0"
+    "graphql-upload": "^11.0.0",
+    "fs-capacitor": "^6.2.0"
   }
 }
