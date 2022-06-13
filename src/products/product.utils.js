@@ -10,14 +10,12 @@ export const processSizes = (caption) => {
   const sizes = caption.match(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|<>|12|]+[^,]+/g);
   return sizes.map((size) => ({
     where: { size },
-    create: { name },
+    create: { size },
   }));
 };
 
 export const processProductSliderPictures = (productSliderPicture) => {
-  const productSliderPictures = productSliderPicture.match(
-    /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|<>|12|]+[^,]+/g
-  );
+  const productSliderPictures = productSliderPicture.match(/[^,]+/g);
   return productSliderPictures.map((productSliderPicture) => ({
     where: { productSliderPicture },
     create: { productSliderPicture },
