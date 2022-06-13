@@ -22,21 +22,21 @@ export default gql`
     product: Product!
     productId: Int!
     order: Int
-    link: String!
+    productSliderPicture: String!
     createdAt: String!
     updatedAt: String!
   }
 
   type Size {
     id: Int!
-    name: String!
+    size: String!
     createdAt: String!
     updatedAt: String!
     products: [Product]
   }
   type Color {
     id: Int!
-    name: String!
+    color: String!
     createdAt: String!
     updatedAt: String!
     products: [Product]

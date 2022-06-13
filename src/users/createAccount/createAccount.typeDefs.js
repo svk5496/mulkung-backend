@@ -8,10 +8,14 @@ export default gql`
   type Mutation {
     createAccount(
       firstName: String!
+      username: String
+      email: String
       lastName: String
+      password: String
       phone: String!
       size: String!
       orderMethod: String!
+      isSuperUser: Boolean
     ): CreateAccountResult
   }
 `;

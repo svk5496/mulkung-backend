@@ -5,7 +5,17 @@ export default {
   Mutation: {
     createAccount: async (
       _,
-      { firstName, lastName, phone, size, orderMethod }
+      {
+        firstName,
+        username,
+        email,
+        password,
+        lastName,
+        phone,
+        size,
+        orderMethod,
+        isSuperUser,
+      }
     ) => {
       try {
         const existingUser = await client.user.findFirst({
@@ -32,12 +42,17 @@ export default {
             ok: true,
           };
         } else {
+          const uglyPassword = await bcrypt.hash(password, 10);
+
           const newUser = await client.user.create({
             data: {
               firstName,
               lastName,
+              username,
+              password: uglyPassword,
               size,
               phone,
+              isSuperUser,
             },
           });
           const newOrder = await client.order.create({
