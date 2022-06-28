@@ -12,9 +12,10 @@ export default gql`
       email: String
       lastName: String
       password: String
-      phone: String!
-      size: String!
-      orderMethod: String!
+      phone: String
+      size: String
+      age: String
+      orderMethod: String
       isSuperUser: Boolean
     ): CreateAccountResult
   }

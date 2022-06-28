@@ -17,21 +17,25 @@ model User {
   username          String?           @unique
   email             String?           @unique
   password          String?
-  phone             String
-  size              String
+  phone             String?
+  size              String?
+  age               String?
   creditCard        String?
   expireDate        String?
   cvcNumber         String?
   isSuperUser       Boolean           @default(false)
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
+  d_address         String?
+  d_detailAddress   String?
+  d_zipCode         String?
   shippingAddresses ShippingAddress[]
   order             Order[]
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
 }
 
 model ShippingAddress {
   id                    Int      @id @default(autoincrement())
-  user                  User     @relation(fields: [userId], references: [id])
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                Int
   addressName           String
   shippingName          String
@@ -39,7 +43,6 @@ model ShippingAddress {
   shippingAddress       String
   shippingDetailAddress String
   shippingZipCode       String
-  is_default            String
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 }
@@ -63,7 +66,7 @@ model Product {
 
 model ProductSliderPicture {
   id                   Int      @id @default(autoincrement())
-  product              Product  @relation(fields: [productId], references: [id])
+  product              Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId            Int
   order                Int?
   productSliderPicture String   @unique
@@ -88,23 +91,33 @@ model Color {
 }
 
 model Order {
-  id          Int         @id @default(autoincrement())
-  user        User        @relation(fields: [userId], references: [id])
-  userId      Int
-  orderMethod String
-  paid        Boolean     @default(false)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  orderItems  OrderItem[]
+  id              Int         @id @default(autoincrement())
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          Int
+  orderMethod     String
+  status          String      @default("new")
+  o_name          String?
+  o_phone         String?
+  o_address       String?
+  o_detailAddress String?
+  o_zipCode       String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  orderItems      OrderItem[]
 }
 
 model OrderItem {
-  id        Int      @id @default(autoincrement())
-  order     Order    @relation(fields: [orderId], references: [id])
-  orderId   Int
-  product   Product  @relation(fields: [productId], references: [id])
-  productId Int
-  amount    Int      @default(1)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             Int      @id @default(autoincrement())
+  order          Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId        Int
+  product        Product  @relation(fields: [productId], references: [id])
+  productId      Int
+  amount         String   @default("1")
+  size           String
+  color          String
+  status         String   @default("배송완료")
+  memo           String?
+  trackingNumber String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

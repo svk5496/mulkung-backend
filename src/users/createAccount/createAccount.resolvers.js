@@ -13,6 +13,7 @@ export default {
         lastName,
         phone,
         size,
+        age,
         orderMethod,
         isSuperUser,
       }
@@ -42,25 +43,43 @@ export default {
             ok: true,
           };
         } else {
-          const uglyPassword = await bcrypt.hash(password, 10);
+          //유저가 존재하지 않고, 패스워드를 입력받은경우.
+          if (password) {
+            const uglyPassword = await bcrypt.hash(password, 10);
 
-          const newUser = await client.user.create({
-            data: {
-              firstName,
-              lastName,
-              username,
-              password: uglyPassword,
-              size,
-              phone,
-              isSuperUser,
-            },
-          });
-          const newOrder = await client.order.create({
-            data: {
-              userId: newUser.id,
-              orderMethod,
-            },
-          });
+            const newSuperUser = await client.user.create({
+              data: {
+                firstName,
+                lastName,
+                username,
+                password: uglyPassword,
+                size,
+                age,
+                phone,
+                isSuperUser,
+              },
+            });
+          } else {
+            //유저가 존재하지않고, 패스워드도 없는경우 (오더가 들어온경우.)
+            const newUser = await client.user.create({
+              data: {
+                firstName,
+                lastName,
+                username,
+                size,
+                age,
+                phone,
+                isSuperUser,
+              },
+            });
+            const newOrder = await client.order.create({
+              data: {
+                userId: newUser.id,
+                orderMethod,
+              },
+            });
+          }
+
           return {
             ok: true,
           };

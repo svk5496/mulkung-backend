@@ -5,12 +5,19 @@ export default gql`
     id: Int!
     firstName: String!
     lastName: String
-    username: String!
+    username: String
     email: String
     password: String
-    phone: String!
-    size: String!
+    phone: String
+    size: String
+    age: String
+    creditCard: String
+    expireDate: String
+    cvcNumber: String
     isSuperUser: Boolean!
+    d_address: String
+    d_detailAddress: String
+    d_zipCode: String
     shippingAddresses: [ShippingAddress]
     order: [Order]
     createdAt: String!
@@ -26,26 +33,6 @@ export default gql`
     shippingAddress: String!
     shippingDetailAddress: String!
     shippingZipCode: String!
-    is_default: String!
-    createdAt: String!
-    updatedAt: String!
-  }
-
-  type Order {
-    id: Int
-    user: User
-    orderByPhone: Boolean
-    paid: Boolean
-    orderItems: [OrderItem]
-    createdAt: String!
-    updatedAt: String!
-  }
-
-  type OrderItem {
-    id: Int!
-    order: Order
-    product: Product!
-    amount: Int
     createdAt: String!
     updatedAt: String!
   }
