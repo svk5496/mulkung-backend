@@ -6,12 +6,12 @@ export default {
   Mutation: {
     createOrderItem: async (
       _,
-      { firstName, phone, orderId, productId, amount, size, color }
+      { firstName, phone, orderId, productId, amount, status, size, color }
     ) => {
       try {
-        console.log(orderId);
         //order ID가 있는 경우,
         if (orderId) {
+          console.log(orderId);
           const existingOrderItem = await client.orderItem.findFirst({
             where: {
               orderId,
@@ -81,14 +81,17 @@ export default {
             };
           }
         } else {
+          const findUser = await client.user.findFirst({
+            where: {
+              firstName,
+              phone,
+            },
+          });
+
           //Order ID가 존재하지 않는경우.
           const findOrder = await client.order.findFirst({
             where: {
-              AND: [
-                { o_name: firstName },
-                { status: "paid" },
-                { o_phone: phone },
-              ],
+              AND: [{ userId: findUser.id }, { status: "paid" }],
             },
           });
 
@@ -116,7 +119,6 @@ export default {
               },
             },
           });
-          console.log(newOrderItem);
           if (newOrderItem) {
             return {
               ok: true,

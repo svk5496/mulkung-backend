@@ -49,7 +49,16 @@ export default {
 
       //user 모델 업데이트
       const findUser = await client.user.findFirst({
-        where: { AND: [{ firstName }, { phone }] },
+        where: {
+          AND: [
+            {
+              firstName,
+            },
+            {
+              phone,
+            },
+          ],
+        },
       });
 
       if (!findUser) {
@@ -66,7 +75,7 @@ export default {
           },
         });
 
-        await client.order.create({
+        const newOrder = await client.order.create({
           data: {
             user: {
               connect: {
@@ -82,45 +91,48 @@ export default {
             o_zipCode: shippingZipCode,
           },
         });
-      }
-
-      await client.order.create({
-        data: {
-          user: {
-            connect: {
-              id: findUser.id,
+      } else {
+        const newOrder = await client.order.create({
+          data: {
+            user: {
+              connect: {
+                id: findUser.id,
+              },
             },
+
+            status,
+            orderMethod,
+            o_name: shippingName,
+            o_phone: shippingPhone,
+            o_address: shippingAddress,
+            o_detailAddress: shippingDetailAddress,
+            o_zipCode: shippingZipCode,
           },
+        });
 
-          status,
-          orderMethod,
-          o_name: shippingName,
-          o_phone: shippingPhone,
-          o_address: shippingAddress,
-          o_detailAddress: shippingDetailAddress,
-          o_zipCode: shippingZipCode,
-        },
-      });
+        console.log(newOrder);
+        const updateUser = await client.user.update({
+          where: {
+            id: findUser.id,
+          },
+          data: {
+            creditCard: uglyCreditCard,
+            expireDate,
+            cvcNumber: uglyCvcNumber,
+            d_address: shippingAddress,
+            d_detailAddress: shippingDetailAddress,
+            d_zipCode: shippingZipCode,
+          },
+        });
 
-      const updateUser = await client.user.update({
-        where: {
-          id: findUser.id,
-        },
-        data: {
-          creditCard: uglyCreditCard,
-          expireDate,
-          cvcNumber: uglyCvcNumber,
-          d_address: shippingAddress,
-          d_detailAddress: shippingDetailAddress,
-          d_zipCode: shippingZipCode,
-        },
-      });
+        console.log("update finished");
 
-      if (!updateUser) {
-        return {
-          ok: false,
-          error: "update user failed",
-        };
+        if (!updateUser) {
+          return {
+            ok: false,
+            error: "update user failed",
+          };
+        }
       }
 
       return {

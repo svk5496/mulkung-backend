@@ -72,6 +72,7 @@ export default {
                 isSuperUser,
               },
             });
+
             const newOrder = await client.order.create({
               data: {
                 userId: newUser.id,
