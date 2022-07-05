@@ -14,5 +14,13 @@ export default {
           userId: id,
         },
       }),
+    totalPurchase: async ({ id }) => {
+      const countOrder = await client.order.count({
+        where: {
+          userId: id,
+        },
+      });
+      return countOrder;
+    },
   },
 };

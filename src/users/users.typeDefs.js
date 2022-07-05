@@ -18,6 +18,7 @@ export default gql`
     d_address: String
     d_detailAddress: String
     d_zipCode: String
+    totalPurchase: Int
     shippingAddresses: [ShippingAddress]
     order: [Order]
     createdAt: String!
