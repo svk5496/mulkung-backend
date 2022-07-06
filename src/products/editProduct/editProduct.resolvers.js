@@ -11,6 +11,7 @@ export default {
     editProduct: async (
       _,
       {
+        id,
         productName,
         price,
         detailPage1,
@@ -37,21 +38,24 @@ export default {
             processProductSliderPictures(productSliderPicture);
         }
 
-        const existingProduct = await client.product.findFirst({
+        const existingProduct = await client.product.findUnique({
           where: {
-            productName,
+            id,
           },
         });
 
         if (existingProduct) {
-          await client.productSliderPicture.deleteMany({
-            where: {
-              productId: existingProduct.id,
-            },
-          });
+          if (productSliderPicture) {
+            await client.productSliderPicture.deleteMany({
+              where: {
+                productId: existingProduct.id,
+              },
+            });
+          }
+
           const updateProduct = await client.product.update({
             where: {
-              productName,
+              id,
             },
             data: {
               productName,

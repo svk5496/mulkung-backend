@@ -7,6 +7,7 @@ export default gql`
   }
   type Mutation {
     editProduct(
+      id: Int!
       productName: String!
       price: Int!
       detailPage1: String!
