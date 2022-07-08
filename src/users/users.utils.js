@@ -35,24 +35,36 @@ export const getAdminUser = async (token) => {
   }
 };
 
-export const protectedResolver =
-  (ourResolver) => (root, args, context, info) => {
+export function protectedResolver(ourResolver) {
+  return function (root, args, context, info) {
     if (!context.loggedInUser) {
-      return {
-        ok: false,
-        error: "Please log in to perfoprm this action.",
-      };
+      const query = info.operation.operation === "query";
+      if (query) {
+        return null;
+      } else {
+        return {
+          ok: false,
+          error: "Please log in to perform this action.",
+        };
+      }
     }
     return ourResolver(root, args, context, info);
   };
+}
 
-export const protectedAdminResolver =
-  (ourResolver) => (root, args, context, info) => {
-    if (!context.loggedInUser) {
-      return {
-        ok: false,
-        error: "Please log in to perfoprm this action.",
-      };
+export function protectedAdminResolver(ourResolver) {
+  return function (root, args, context, info) {
+    if (!context.adiminUser) {
+      const query = info.operation.operation === "query";
+      if (query) {
+        return null;
+      } else {
+        return {
+          ok: false,
+          error: "Please log in to perform this action.",
+        };
+      }
     }
     return ourResolver(root, args, context, info);
   };
+}
