@@ -52,6 +52,7 @@ model Product {
   productName           String                 @unique
   productEngName        String?
   price                 Int
+  orders                Order[]
   discountRate          Int                    @default(0)
   thumbnail             String                 @default("null")
   detailPage1           String                 @default("null")
@@ -94,6 +95,8 @@ model Order {
   id              Int         @id @default(autoincrement())
   user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId          Int
+  product         Product?    @relation(fields: [productId], references: [id])
+  productId       Int?
   orderMethod     String
   status          String      @default("new")
   o_name          String?
@@ -104,6 +107,7 @@ model Order {
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
   orderItems      OrderItem[]
+
 }
 
 model OrderItem {

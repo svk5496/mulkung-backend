@@ -16,6 +16,7 @@ export default gql`
       size: String
       age: String
       orderMethod: String
+      productId: Int
       isSuperUser: Boolean
     ): CreateAccountResult
   }

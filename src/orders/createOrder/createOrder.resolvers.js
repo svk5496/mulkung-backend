@@ -91,6 +91,8 @@ export default {
             o_zipCode: shippingZipCode,
           },
         });
+
+        console.log(newOrder);
       } else {
         const newOrder = await client.order.create({
           data: {
@@ -99,7 +101,6 @@ export default {
                 id: findUser.id,
               },
             },
-
             status,
             orderMethod,
             o_name: shippingName,

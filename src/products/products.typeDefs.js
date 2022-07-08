@@ -14,6 +14,7 @@ export default gql`
     colors: [Color]
     createdAt: String!
     updatedAt: String!
+    orders: [Order]
     orderItems: [OrderItem]
     productSliderPictures: [ProductSliderPicture]
   }

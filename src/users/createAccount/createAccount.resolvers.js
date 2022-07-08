@@ -15,6 +15,7 @@ export default {
         size,
         age,
         orderMethod,
+        productId,
         isSuperUser,
       }
     ) => {
@@ -35,16 +36,32 @@ export default {
         if (existingUser) {
           const makeOrder = await client.order.create({
             data: {
-              userId: existingUser.id,
               orderMethod,
+              product: {
+                connect: {
+                  id: productId,
+                },
+              },
+              user: {
+                connect: {
+                  id: existingUser.id,
+                },
+              },
             },
           });
+          if (!makeOrder) {
+            return {
+              ok: false,
+              error: "can't make new order",
+            };
+          }
           return {
             ok: true,
           };
-        } else {
+        }
+        {
           //유저가 존재하지 않고, 패스워드를 입력받은경우.
-          if (password) {
+          if (password && !existingUser) {
             const uglyPassword = await bcrypt.hash(password, 10);
 
             const newSuperUser = await client.user.create({
@@ -59,7 +76,14 @@ export default {
                 isSuperUser,
               },
             });
-          } else {
+
+            return {
+              ok: true,
+            };
+          }
+        }
+        {
+          if (!password && !existingUser) {
             //유저가 존재하지않고, 패스워드도 없는경우 (오더가 들어온경우.)
             const newUser = await client.user.create({
               data: {
@@ -75,15 +99,24 @@ export default {
 
             const newOrder = await client.order.create({
               data: {
-                userId: newUser.id,
+                product: {
+                  connect: {
+                    id: productId,
+                  },
+                },
+                user: {
+                  connect: {
+                    id: newUser.id,
+                  },
+                },
                 orderMethod,
               },
             });
-          }
 
-          return {
-            ok: true,
-          };
+            return {
+              ok: true,
+            };
+          }
         }
       } catch (e) {
         return e;

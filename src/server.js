@@ -3,7 +3,12 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { graphqlUploadExpress } from "graphql-upload";
 import { typeDefs, resolvers } from "./schema";
-import { getUser, protectedResolver } from "./users/users.utils";
+import {
+  getUser,
+  getAdminUser,
+  protectedResolver,
+  protectedAdminResolver,
+} from "./users/users.utils";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 const PORT = process.env.PORT;
 
@@ -16,7 +21,9 @@ const startServer = async () => {
     context: async ({ req }) => {
       return {
         loggedInUser: await getUser(req.headers.authorization),
+        adiminUser: await getAdminUser(req.header.authorization),
         protectedResolver,
+        protectedAdminResolver,
       };
     },
   });

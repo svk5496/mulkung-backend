@@ -4,6 +4,7 @@ export default gql`
   type Order {
     id: Int
     user: User
+    product: Product
     orderMethod: String
     status: String
     o_name: String
