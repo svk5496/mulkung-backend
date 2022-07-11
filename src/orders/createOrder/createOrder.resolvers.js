@@ -10,6 +10,7 @@ export default {
       {
         firstName,
         phone,
+        age,
         //order Info
         status,
         orderMethod,
@@ -65,6 +66,7 @@ export default {
         const newUser = await client.user.create({
           data: {
             firstName,
+            age,
             phone,
             creditCard: uglyCreditCard,
             expireDate,

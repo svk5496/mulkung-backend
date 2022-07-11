@@ -8,6 +8,7 @@ export default gql`
   type Mutation {
     createOrder(
       firstName: String!
+      age: String
       phone: String!
       status: String!
       orderMethod: String!
