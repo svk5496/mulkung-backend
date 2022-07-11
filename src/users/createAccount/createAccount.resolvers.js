@@ -76,6 +76,12 @@ export default {
                 isSuperUser,
               },
             });
+            if (!newSuperUser) {
+              return {
+                ok: false,
+                error: "can't make super User",
+              };
+            }
 
             return {
               ok: true,
