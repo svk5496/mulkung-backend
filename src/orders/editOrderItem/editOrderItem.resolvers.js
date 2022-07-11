@@ -14,8 +14,6 @@ export default {
           },
         });
 
-        console.log(existOrderItem);
-
         if (!existOrderItem) {
           return {
             ok: false,
@@ -33,8 +31,6 @@ export default {
             status: orderItemStatus,
           },
         });
-
-        console.log(updateOrderItem);
 
         if (!updateOrderItem) {
           return {

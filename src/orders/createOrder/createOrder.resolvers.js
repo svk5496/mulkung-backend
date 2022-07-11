@@ -113,7 +113,6 @@ export default {
           },
         });
 
-        console.log(newOrder);
         const updateUser = await client.user.update({
           where: {
             id: findUser.id,
@@ -127,8 +126,6 @@ export default {
             d_zipCode: shippingZipCode,
           },
         });
-
-        console.log("update finished");
 
         if (!updateUser) {
           return {

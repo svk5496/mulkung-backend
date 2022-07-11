@@ -9,7 +9,6 @@ export default {
           phone,
         },
       });
-      console.log(Users);
       return Users;
     },
   },

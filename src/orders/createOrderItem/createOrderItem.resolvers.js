@@ -11,7 +11,6 @@ export default {
       try {
         //order ID가 있는 경우,
         if (orderId) {
-          console.log(orderId);
           const existingOrderItem = await client.orderItem.findFirst({
             where: {
               orderId,

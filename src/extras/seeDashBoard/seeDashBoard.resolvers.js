@@ -80,9 +80,7 @@ export default {
       const totalUsers = await client.user.findMany({});
       const totalOrders = await client.order.findMany({});
       const totalRefunds = await client.orderItem.findMany({
-        where: {
-          status: "환불완료",
-        },
+        where: { OR: [{ status: "환불접수" }, { status: "교환접수" }] },
       });
 
       const filteredUserArray = [];

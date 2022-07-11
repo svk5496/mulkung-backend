@@ -8,6 +8,7 @@ export default gql`
   type Mutation {
     editNewOrder(
       id: Int!
+      age: String
       status: String!
       addressName: String!
       shippingName: String!
