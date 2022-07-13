@@ -20,8 +20,7 @@ export default gql`
   }
   type ProductSliderPicture {
     id: Int!
-    product: Product!
-    productId: Int!
+    products: [Product]
     order: Int
     productSliderPicture: String!
     createdAt: String!

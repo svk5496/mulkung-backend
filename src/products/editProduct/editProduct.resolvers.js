@@ -14,23 +14,22 @@ export default {
         id,
         productName,
         price,
+        adName,
+        packageName,
         detailPage1,
-        detailPage2,
-        color,
-        size,
         productSliderPicture,
       }
     ) => {
       try {
-        let colorObjs = [];
-        if (color) {
-          colorObjs = processColors(color);
-        }
+        // let colorObjs = [];
+        // if (color) {
+        //   colorObjs = processColors(color);
+        // }
 
-        let sizeObjs = [];
-        if (size) {
-          sizeObjs = processSizes(size);
-        }
+        // let sizeObjs = [];
+        // if (size) {
+        //   sizeObjs = processSizes(size);
+        // }
 
         let productSliderPictureObjs = [];
         if (productSliderPicture) {
@@ -59,19 +58,20 @@ export default {
             },
             data: {
               productName,
+              adName,
+              packageName,
               price,
               detailPage1,
-              detailPage2,
-              ...(colorObjs.length > 0 && {
-                colors: {
-                  connectOrCreate: colorObjs,
-                },
-              }),
-              ...(sizeObjs.length > 0 && {
-                sizes: {
-                  connectOrCreate: sizeObjs,
-                },
-              }),
+              // ...(colorObjs.length > 0 && {
+              //   colors: {
+              //     connectOrCreate: colorObjs,
+              //   },
+              // }),
+              // ...(sizeObjs.length > 0 && {
+              //   sizes: {
+              //     connectOrCreate: sizeObjs,
+              //   },
+              // }),
               ...(productSliderPictureObjs.length > 0 && {
                 productSliderPictures: {
                   connectOrCreate: productSliderPictureObjs,

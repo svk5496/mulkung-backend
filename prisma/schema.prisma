@@ -49,8 +49,10 @@ model ShippingAddress {
 
 model Product {
   id                    Int                    @id @default(autoincrement())
-  productName           String                 @unique
+  productName           String?
   productEngName        String?
+  adName                String?
+  packageName           String?
   price                 Int
   orders                Order[]
   discountRate          Int                    @default(0)
@@ -66,13 +68,12 @@ model Product {
 }
 
 model ProductSliderPicture {
-  id                   Int      @id @default(autoincrement())
-  product              Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId            Int
+  id                   Int       @id @default(autoincrement())
   order                Int?
-  productSliderPicture String   @unique
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
+  productSliderPicture String    @unique
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  products             Product[]
 }
 
 model Size {

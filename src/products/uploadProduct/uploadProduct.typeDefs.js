@@ -9,10 +9,9 @@ export default gql`
     uploadProduct(
       productName: String!
       price: Int!
+      adName: String!
+      packageName: String!
       detailPage1: String!
-      detailPage2: String!
-      color: String
-      size: String
       productSliderPicture: String
     ): uploadProductResult!
   }

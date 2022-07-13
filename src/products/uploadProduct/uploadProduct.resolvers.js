@@ -13,23 +13,22 @@ export default {
       {
         productName,
         price,
+        adName,
+        packageName,
         detailPage1,
-        detailPage2,
-        color,
-        size,
         productSliderPicture,
       }
     ) => {
       try {
-        let colorObjs = [];
-        if (color) {
-          colorObjs = processColors(color);
-        }
+        // let colorObjs = [];
+        // if (color) {
+        //   colorObjs = processColors(color);
+        // }
 
-        let sizeObjs = [];
-        if (size) {
-          sizeObjs = processSizes(size);
-        }
+        // let sizeObjs = [];
+        // if (size) {
+        //   sizeObjs = processSizes(size);
+        // }
 
         let productSliderPictureObjs = [];
         if (productSliderPicture) {
@@ -37,35 +36,23 @@ export default {
             processProductSliderPictures(productSliderPicture);
         }
 
-        const existingProduct = await client.product.findFirst({
-          where: {
-            productName,
-          },
-        });
-
-        if (existingProduct) {
-          return {
-            ok: false,
-            error: "해당 제품이 이미 존재합니다",
-          };
-        }
-
         await client.product.create({
           data: {
             productName,
+            adName,
+            packageName,
             price,
             detailPage1,
-            detailPage2,
-            ...(colorObjs.length > 0 && {
-              colors: {
-                connectOrCreate: colorObjs,
-              },
-            }),
-            ...(sizeObjs.length > 0 && {
-              sizes: {
-                connectOrCreate: sizeObjs,
-              },
-            }),
+            // ...(colorObjs.length > 0 && {
+            //   colors: {
+            //     connectOrCreate: colorObjs,
+            //   },
+            // }),
+            // ...(sizeObjs.length > 0 && {
+            //   sizes: {
+            //     connectOrCreate: sizeObjs,
+            //   },
+            // }),
             ...(productSliderPictureObjs.length > 0 && {
               productSliderPictures: {
                 connectOrCreate: productSliderPictureObjs,
