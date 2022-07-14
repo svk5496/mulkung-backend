@@ -13,6 +13,7 @@ export default {
       {
         id,
         productName,
+        isActive,
         price,
         adName,
         packageName,
@@ -58,6 +59,7 @@ export default {
             },
             data: {
               productName,
+              isActive,
               adName,
               packageName,
               price,

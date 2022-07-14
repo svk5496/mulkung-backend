@@ -9,6 +9,7 @@ export default gql`
     editProduct(
       id: Int!
       productName: String!
+      isActive: String
       price: Int!
       adName: String!
       packageName: String!

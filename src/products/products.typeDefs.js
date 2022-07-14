@@ -6,6 +6,8 @@ export default gql`
     productName: String!
     productEngName: String
     price: Int!
+    adName: String
+    packageName: String
     discountRate: Int!
     thumbnail: String
     detailPage1: String
@@ -14,6 +16,7 @@ export default gql`
     colors: [Color]
     createdAt: String!
     updatedAt: String!
+    totalOrderAmount: Int
     orders: [Order]
     orderItems: [OrderItem]
     productSliderPictures: [ProductSliderPicture]

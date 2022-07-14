@@ -53,6 +53,7 @@ model Product {
   productEngName        String?
   adName                String?
   packageName           String?
+  isActive              String                 @default("active")
   price                 Int
   orders                Order[]
   discountRate          Int                    @default(0)
