@@ -9,6 +9,7 @@ export default {
       {
         id,
         age,
+        gender,
         //order Info
         status,
         //shipping Info
@@ -97,6 +98,7 @@ export default {
         },
         data: {
           age,
+          gender,
           creditCard: uglyCreditCard,
           expireDate,
           cvcNumber: uglyCvcNumber,

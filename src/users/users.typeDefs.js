@@ -11,6 +11,7 @@ export default gql`
     phone: String
     size: String
     age: String
+    gender: String
     creditCard: String
     expireDate: String
     cvcNumber: String

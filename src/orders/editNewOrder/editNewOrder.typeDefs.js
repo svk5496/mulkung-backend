@@ -9,6 +9,7 @@ export default gql`
     editNewOrder(
       id: Int!
       age: String
+      gender: String!
       status: String!
       addressName: String!
       shippingName: String!
