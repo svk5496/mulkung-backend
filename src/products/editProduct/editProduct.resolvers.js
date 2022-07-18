@@ -22,16 +22,6 @@ export default {
       }
     ) => {
       try {
-        // let colorObjs = [];
-        // if (color) {
-        //   colorObjs = processColors(color);
-        // }
-
-        // let sizeObjs = [];
-        // if (size) {
-        //   sizeObjs = processSizes(size);
-        // }
-
         let productSliderPictureObjs = [];
         if (productSliderPicture) {
           productSliderPictureObjs =
@@ -45,14 +35,6 @@ export default {
         });
 
         if (existingProduct) {
-          if (productSliderPicture) {
-            await client.productSliderPicture.deleteMany({
-              where: {
-                productId: existingProduct.id,
-              },
-            });
-          }
-
           const updateProduct = await client.product.update({
             where: {
               id,
@@ -64,16 +46,6 @@ export default {
               packageName,
               price,
               detailPage1,
-              // ...(colorObjs.length > 0 && {
-              //   colors: {
-              //     connectOrCreate: colorObjs,
-              //   },
-              // }),
-              // ...(sizeObjs.length > 0 && {
-              //   sizes: {
-              //     connectOrCreate: sizeObjs,
-              //   },
-              // }),
               ...(productSliderPictureObjs.length > 0 && {
                 productSliderPictures: {
                   connectOrCreate: productSliderPictureObjs,
